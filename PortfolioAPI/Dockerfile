@@ -2,12 +2,12 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copy all the files from the repository into the Docker container
+# Copy all the files from the Render Root Directory
 COPY . .
 
-# Restore and publish pointing specifically to the inner folder
-RUN dotnet restore "PortfolioAPI/PortfolioAPI.csproj"
-RUN dotnet publish "PortfolioAPI/PortfolioAPI.csproj" -c Release -o /app/publish
+# Restore and publish using just the file name!
+RUN dotnet restore "PortfolioAPI.csproj"
+RUN dotnet publish "PortfolioAPI.csproj" -c Release -o /app/publish
 
 # Stage 2: Run the application
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
