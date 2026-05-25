@@ -304,20 +304,10 @@
 
 @keyframes slideUpFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-/* MOBILE RESPONSIVE */
-.hamburger { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; z-index: 1001; }
-.hamburger span { width: 25px; height: 2px; background: var(--text-main); transition: 0.3s ease; }
-.mobile-nav { display: none; }
-
-@media (max-width: 1024px) {
-  .hero-section { flex-direction: column; justify-content: center; text-align: center; gap: 3rem; }
-  .hero-cta-group { justify-content: center; }
-  .hero-code-block { width: 100%; max-width: 500px; text-align: left; }
-  .about-grid, .contact-grid { grid-template-columns: 1fr; }
-  .about-stats { flex-direction: row; flex-wrap: wrap; }
-}
-
 @media (max-width: 768px) {
+  /* 👇 THIS IS THE NEW LINE THAT FIXES IT 👇 */
+  .hero-section { padding-top: 6rem; } 
+  
   .nav-links { display: none; }
   .hamburger { display: flex; }
   .hero-name { font-size: 3rem; }
@@ -337,23 +327,4 @@
   .footer-right { width: 100%; justify-content: space-between; }
   .footer-admin-link { border-left: none; padding-left: 0; }
   .chat-window { right: 10px; left: 10px; width: auto; bottom: 130px; }
-}
-/* Smooth hover zoom for the certificate image */
-.cert-card:hover .cert-img {
-  transform: scale(1.05);
-}
-
-/* Optional: Slight glow on the card border when hovered */
-.cert-card {
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
-}
-.cert-card:hover {
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-/* Target mobile screens specifically */
-@media (max-width: 768px) {
-  .your-hero-container-class {
-    padding-top: 5rem; /* Adjust this value until 'Nare' clears the navbar! */
-  }
 }
