@@ -1,5 +1,22 @@
 /* src/app/components/portfolio/portfolio.component.css */
+/* Tablet & Large Mobile: Scale everything down to 85% */
+@media (max-width: 768px) {
+  html {
+    font-size: 85%; 
+  }
+}
 
+/* Small Phones: Scale everything down even further to 75% */
+@media (max-width: 480px) {
+  html {
+    font-size: 75%; 
+  }
+}
+.hero-name {
+  /* This text will literally grow and shrink as you resize the window! */
+  font-size: clamp(2.5rem, 8vw, 5rem); 
+  margin-top: 2rem; /* Keep a safe, standard margin */
+}
 .portfolio-root { position: relative; min-height: 100vh; z-index: 1; }
 
 /* At the top of your CSS file */
