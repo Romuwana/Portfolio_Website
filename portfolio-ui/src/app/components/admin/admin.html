@@ -1,0 +1,410 @@
+<div class="admin-layout">
+  
+  <aside class="admin-sidebar glass-card">
+    <div class="sidebar-header">
+      <span class="syntax-blue">Admin</span>.<span class="syntax-cyan">Workspace</span>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <button [class.active]="activeTab === 'dashboard'" (click)="switchTab('dashboard')">> Dashboard</button>
+      <button [class.active]="activeTab === 'projects'" (click)="switchTab('projects')">> Projects_Db</button>
+      <button [class.active]="activeTab === 'skills'" (click)="switchTab('skills')">> Skills_Db</button>
+      <button [class.active]="activeTab === 'certs'" (click)="switchTab('certs')">> Certs_Db</button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="btn-ghost logout-btn" (click)="logout()">[ Execute Logout ]</button>
+    </div>
+  </aside>
+
+  <main class="admin-content">
+    
+    @if (activeTab === 'dashboard') {
+      <div class="dashboard-grid">
+        <div class="dash-card">
+          <h3>System Overview</h3>
+          <div class="stat-row">
+            <span class="stat-label">Total Projects:</span>
+            <span class="stat-value syntax-purple">{{ projects.length }}</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-label">Dominant Tech:</span>
+            <span class="stat-value syntax-yellow">{{ topTech }}</span>
+          </div>
+        </div>
+
+        <div class="dash-card center-content">
+          <h3>Project Distribution</h3>
+          <div class="pie-chart" [style.background]="pieChartStyle"></div>
+          <div class="chart-legend">
+            <span class="legend-item"><span class="color-box blue"></span> Software ({{softwareCount}})</span>
+            <span class="legend-item"><span class="color-box green"></span> Data Science ({{dataScienceCount}})</span>
+          </div>
+        </div>
+
+        <div class="dash-card span-2">
+          <h3>Recent Activity Graph</h3>
+          <div class="bar-chart">
+            @for (val of activityData; track $index) {
+              <div class="bar-container">
+                <div class="bar" [style.height.%]="val"></div>
+              </div>
+            }
+          </div>
+          <div class="chart-axis">Mon Tue Wed Thu Fri Sat Sun</div>
+        </div>
+      </div>
+    }
+
+    @if (activeTab === 'projects') {
+      <div class="section-header-flex">
+        <h2>Projects</h2>
+        <button class="btn btn-primary" (click)="openNewProjectModal()">+ New Project</button>
+      </div>
+
+      <div class="modern-table-container glass-card">
+        <table class="modern-table">
+          <thead>
+            <tr>
+              <th>TITLE</th>
+              <th>CATEGORY</th>
+              <th>TECH STACK</th>
+              <th>STATUS</th>
+              <th>CREATED</th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (project of projects; track project.id) {
+              <tr>
+                <td>
+                  <div class="title-cell">
+                    <span class="main-title">{{ project.title }}</span>
+                    <span class="sub-title">{{ project.description }}</span>
+                  </div>
+                </td>
+                <td>
+                  <span class="tech-chip" style="background: var(--syntax-purple); color: #fff;">
+                    {{ project.category || 'Software' }}
+                  </span>
+                </td>
+                <td>
+                  <div class="chip-container">
+                    @for (tech of project.techStack || []; track $index) {
+                      <span class="tech-chip">{{ tech }}</span>
+                    }
+                  </div>
+                </td>
+                <td>
+                  @if (project.category === 'Data Science') {
+                    <span class="status-badge published">
+                      <span class="dot"></span> N/A (Model)
+                    </span>
+                  } @else {
+                    <!-- Check isPublished to set the color class and text -->
+                    <span class="status-badge" [ngClass]="project.isPublished ? 'published' : 'draft'">
+                      <span class="dot"></span> {{ project.isPublished ? 'Published' : 'Draft' }}
+                    </span>
+                  }
+                </td>
+                <td class="date-cell">{{ (project.createdAt | date:'yyyy-MM-dd') || 'N/A' }}</td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="btn-action" (click)="editProject(project)">Edit</button>
+                    <button class="btn-action danger" (click)="deleteProject(project.id)">Del</button>
+                  </div>
+                </td>
+              </tr>
+            }
+            @if (projects.length === 0) {
+              <tr>
+                <td colspan="6" style="text-align: center; padding: 3rem; color: var(--text-muted);">
+                  No projects found. Click "+ New Project" to add one.
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      @if (isProjectModalOpen) {
+        <div class="modal-overlay" (click)="closeModal()">
+          <div class="modal-content glass-card" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+              <h3>{{ editingProject.id ? 'Edit Project' : 'New Project' }}</h3>
+              <button class="close-btn" (click)="closeModal()">✕</button>
+            </div>
+            
+            <div class="modal-body">
+              <div class="form-group">
+                <label>Title</label>
+                <input type="text" [(ngModel)]="editingProject.title" placeholder="e.g. Customer Churn Model">
+              </div>
+              
+              <div class="form-group">
+                <label>Description</label>
+                <input type="text" [(ngModel)]="editingProject.description" placeholder="Short description...">
+              </div>
+
+              <div class="form-group">
+                <label>Category</label>
+                <select [(ngModel)]="editingProject.category">
+                  <option value="Data Science">Data Science</option>
+                  <option value="Software">Software</option>
+                </select>
+              </div>
+
+              <!-- ========================================== -->
+              <!-- DATA SCIENCE SPECIFIC FIELDS               -->
+              <!-- ========================================== -->
+              <ng-container *ngIf="editingProject.category === 'Data Science'">
+                <div class="form-group">
+                  <label>Dataset URL</label>
+                  <input type="url" [(ngModel)]="editingProject.datasetUrl" placeholder="Link to dataset">
+                </div>
+                <div class="form-group">
+                  <label>Presentation URL (PDF/PPT)</label>
+                  <input type="url" [(ngModel)]="editingProject.presentationUrl" placeholder="Link to presentation">
+                </div>
+              </ng-container>
+
+              <!-- ========================================== -->
+              <!-- SOFTWARE SPECIFIC FIELDS                   -->
+              <!-- ========================================== -->
+              <ng-container *ngIf="editingProject.category === 'Software'">
+                <div class="form-group">
+                  <label>Publish Status</label>
+                  <!-- We bind directly to isPublished now -->
+                  <select [(ngModel)]="editingProject.isPublished">
+                    <option [ngValue]="true">Published</option>
+                    <option [ngValue]="false">Draft (Not Published)</option>
+                  </select>
+                </div>
+                
+                <!-- Check the boolean directly to show the URL input -->
+                <div class="form-group" *ngIf="editingProject.isPublished">
+                  <label>Live Website URL</label>
+                  <input type="url" [(ngModel)]="editingProject.liveWebsiteUrl" placeholder="https://...">
+                </div>
+              </ng-container>
+              <div class="form-group">
+                <label>GitHub Repository / Notebook URL</label>
+                <input type="url" [(ngModel)]="editingProject.githubUrl" placeholder="https://github.com/...">
+              </div>
+
+              <div class="form-group">
+                <label>Tech Stack (Comma separated)</label>
+                <input type="text" [(ngModel)]="techStackInput" placeholder="Python, Angular, etc.">
+              </div>
+
+              <div class="form-group">
+                <label>Project Images (Max 5)</label>
+                <input type="file" accept="image/*" multiple (change)="onFilesSelected($event, 5)">
+                <p style="font-size: 0.75rem; color: var(--syntax-orange); margin-top: 5px;">
+                  // First image will be used as the primary thumbnail.
+                </p>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-ghost" (click)="closeModal()">Cancel</button>
+              <button type="button" class="btn btn-primary" (click)="saveProject()" [disabled]="isUploading">
+                {{ isUploading ? 'Uploading...' : 'Save Project' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    }
+    @if (activeTab === 'skills') {
+      <div class="section-header-flex">
+        <h2>Skills Database</h2>
+        <button class="btn btn-primary" (click)="openNewSkillModal()">+ Add Skill</button>
+      </div>
+
+      <div class="modern-table-container glass-card">
+        <table class="modern-table">
+          <thead>
+            <tr>
+              <th>SKILL NAME</th>
+              <th>CATEGORY</th>
+              <th>PROFICIENCY</th>
+              <th>EXPERIENCE</th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (skill of skills; track skill.id) {
+              <tr>
+                <td>
+                  <div class="title-cell">
+                    <span class="main-title">{{ skill.name }}</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="chip-container">
+                    <span class="tech-chip">{{ skill.category }}</span>
+                  </div>
+                </td>
+                <td>
+                  <div style="width: 100px; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden;">
+                    <div [style.width.%]="skill.level" style="height: 100%; background: var(--syntax-yellow);"></div>
+                  </div>
+                </td>
+                <td class="date-cell">{{ skill.level > 80 ? 'Advanced' : 'Intermediate' }}</td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="btn-action" (click)="editSkill(skill)">Edit</button>
+                    <button class="btn-action danger" (click)="deleteSkill(skill.id)">Del</button>
+                  </div>
+                </td>
+              </tr>
+            }
+            @if (skills.length === 0) {
+              <tr>
+                <td colspan="5" style="text-align: center; padding: 3rem; color: var(--text-muted);">
+                  No skills found. Click "+ Add Skill" to add one.
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      @if (isSkillModalOpen) {
+        <div class="modal-overlay" (click)="closeModal()">
+          <div class="modal-content glass-card" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+              <h3>{{ editingSkill.id ? 'Edit Skill' : 'New Skill' }}</h3>
+              <button class="close-btn" (click)="closeModal()">✕</button>
+            </div>
+            
+            <div class="modal-body">
+              <div class="form-group">
+                <label>Skill Name</label>
+                <input type="text" [(ngModel)]="editingSkill.name" placeholder="e.g. Python">
+              </div>
+              
+              <div class="form-group">
+                <label>Category</label>
+                <select [(ngModel)]="editingSkill.category">
+                  <option value="Technical Skills">Technical Skills</option>
+                  <option value="Soft Skills">Soft Skills</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Proficiency Level (0-100)</label>
+                <input type="number" [(ngModel)]="editingSkill.level" min="0" max="100">
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button class="btn btn-ghost" (click)="closeModal()">Cancel</button>
+              <button class="btn btn-primary" (click)="saveSkill()">Save Skill</button>
+            </div>
+          </div>
+        </div>
+      }
+    }
+
+    @if (activeTab === 'certs') {
+      <div class="section-header-flex">
+        <h2>Certifications</h2>
+        <button class="btn btn-primary" (click)="openNewCertModal()">+ Add Certification</button>
+      </div>
+
+      <div class="modern-table-container glass-card">
+        <table class="modern-table">
+          <thead>
+            <tr>
+              <th>CERTIFICATION</th>
+              <th>ISSUER</th>
+              <th>STATUS</th>
+              <th>DATE ISSUED</th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (cert of certifications; track cert.id) {
+              <tr>
+                <td>
+                  <div class="title-cell">
+                    <span class="main-title">{{ cert.name }}</span>
+                    <span class="sub-title">Credential ID: {{ cert.id || 'N/A' }}</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="chip-container">
+                    <span class="tech-chip">{{ cert.issuer || 'Online Provider' }}</span>
+                  </div>
+                </td>
+                <td>
+                  <span class="status-badge published">
+                    <span class="dot"></span> Verified
+                  </span>
+                </td>
+                <td class="date-cell">{{ (cert.dateIssued | date:'yyyy-MM-dd') || 'N/A' }}</td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="btn-action" (click)="editCert(cert)">Edit</button>
+                    <button class="btn-action danger" (click)="deleteCert(cert.id)">Del</button>
+                  </div>
+                </td>
+              </tr>
+            }
+            @if (certifications.length === 0) {
+              <tr>
+                <td colspan="5" style="text-align: center; padding: 3rem; color: var(--text-muted);">
+                  No certifications found. Click "+ Add Certification" to add one.
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      @if (isCertModalOpen) {
+        <div class="modal-overlay" (click)="closeModal()">
+          <div class="modal-content glass-card" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+              <h3>{{ editingCert.id ? 'Edit Certification' : 'New Certification' }}</h3>
+              <button class="close-btn" (click)="closeModal()">✕</button>
+            </div>
+            
+            <div class="modal-body">
+              <div class="form-group">
+                <label>Certification Name</label>
+                <input type="text" [(ngModel)]="editingCert.name" placeholder="e.g. AWS Solutions Architect">
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Issuer</label>
+                  <input type="text" [(ngModel)]="editingCert.issuer" placeholder="e.g. Amazon Web Services">
+                </div>
+                <div class="form-group">
+                  <label>Date Issued</label>
+                  <input type="date" [(ngModel)]="editingCert.dateIssued">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Certification Proof (Max 1 Image)</label>
+                <input type="file" accept="image/*" (change)="onFilesSelected($event, 1)">
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button class="btn btn-ghost" (click)="closeModal()">Cancel</button>
+              <button class="btn btn-primary" (click)="saveCert()" [disabled]="isUploading">
+                {{ isUploading ? 'Uploading...' : 'Save Certification' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    }
+
+  </main>
+</div>

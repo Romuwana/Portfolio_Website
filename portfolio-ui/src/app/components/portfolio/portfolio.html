@@ -1,0 +1,445 @@
+<div class="portfolio-root">
+
+  <nav class="navbar" [class.scrolled]="isScrolled">
+    <div class="nav-logo" (click)="scrollTo('hero')">Nare<span class="dot">.R</span></div>
+    <ul class="nav-links">
+      <li><a (click)="scrollTo('about')">About</a></li>
+      <li><a (click)="scrollTo('skills')">Skills</a></li>
+      <li><a (click)="scrollTo('projects')">Projects</a></li>
+      <li><a (click)="scrollTo('certifications')">Certs</a></li>
+      <li><a (click)="scrollTo('contact')">Contact</a></li>
+      <li>
+        <a routerLink="/login" class="nav-admin-link">Admin Login</a>
+      </li>
+    </ul>
+    <button class="hamburger" (click)="toggleMenu()" [class.open]="menuOpen">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-nav" [class.open]="menuOpen">
+    <a (click)="scrollTo('about'); toggleMenu()">About</a>
+    <a (click)="scrollTo('skills'); toggleMenu()">Skills</a>
+    <a (click)="scrollTo('projects'); toggleMenu()">Projects</a>
+    <a (click)="scrollTo('certifications'); toggleMenu()">Certs</a>
+    <a (click)="scrollTo('contact'); toggleMenu()">Contact</a>
+    <a routerLink="/login" (click)="toggleMenu()">System Login</a>
+  </div>
+
+  <section id="hero" class="hero-section">
+    <div class="hero-grid-overlay"></div>
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Available for Internships & Vacation Roles
+      </div>
+      <h1 class="hero-name">
+        <span class="name-line">Nare</span>
+        <span class="name-line accent"> Romuwana</span>
+      </h1>
+      <br>
+      <p class="hero-subtitle">BSc Information Technology Student&nbsp;·&nbsp;Data Science Major&nbsp;·&nbsp;Full-Stack Developer</p>
+      
+      <div class="hero-cta-group">
+        <button class="btn btn-primary" (click)="downloadCV()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download CV
+        </button>
+        <button class="btn btn-outline" (click)="scrollTo('contact')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Contact Me
+        </button>
+        <button class="btn btn-ghost" (click)="toggleChat()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          Chat to My AI Assistant
+        </button>
+      </div>
+    </div>
+
+    <div class="hero-code-block">
+      <div class="code-header">
+        <span class="code-filename">nare.cs</span>
+      </div>
+      <pre class="code-body"><span class="kw">public class</span> <span class="cls">NareRomuwana</span>
+&#123;
+  <span class="kw">public string</span> Role = <span class="str">"Full-Stack Developer"</span>;
+  <span class="kw">public string[]</span> Stack = &#123;
+    <span class="str">"C#"</span>, <span class="str">"ASP.NET"</span>, <span class="str">"Angular"</span>,
+    <span class="str">"PostgreSQL"</span>, <span class="str">"Python"</span>
+  &#125;;
+  <span class="kw">public bool</span> OpenToWork = <span class="kw">true</span>;
+
+  <span class="kw">public string</span> Build()
+  &#123;
+    <span class="kw">return</span> <span class="str">"Real-world solutions"</span>;
+  &#125;
+&#125;</pre>
+    </div>
+  </section>
+
+  <section id="about" class="section about-section">
+    <div class="section-header">
+      <span class="section-tag">01 — About</span>
+      <h2 class="section-title">Who I Am</h2>
+    </div>
+    <div class="about-grid">
+      
+      <div class="about-image-wrap">
+        <div class="about-img-frame">
+          <img src="assets/profile.jpeg" alt="Nare Romuwana Profile" class="about-profile-img">
+        </div>
+      </div>
+
+      <div class="about-content">
+        <div class="about-card glass-card">
+          <p class="about-paragraph">
+            I'm <strong>Nare Romuwana</strong>, a Computer Science student at the University of the Free State (UFS) and a freelance web developer who thrives at the intersection of robust engineering, data science, and modern design. From building platforms for local businesses to developing predictive machine learning models.
+          </p>
+          <p class="about-paragraph">
+            On the backend, I engineer robust, scalable APIs using <strong>C# and ASP.NET Core MVC</strong> designing clean REST architectures that power seamless user experiences. On the frontend, I craft responsive, pixel-perfect interfaces with <strong>Angular and TypeScript</strong>, ensuring every interaction feels intuitive.
+          </p>
+          <div class="about-tags">
+            <span class="tag">&#35;BackendDev</span>
+            <span class="tag">&#35;FrontendDev</span>
+            <span class="tag">&#35;DataScience</span>
+            <span class="tag">&#35;FullStack</span>
+            <span class="tag">&#35;MachineLearning</span>
+          </div>
+        </div>
+
+        <div class="about-stats">
+          <div class="stat-card glass-card">
+            <span class="stat-num">3+</span>
+            <span class="stat-label">Years Coding</span>
+          </div>
+          <div class="stat-card glass-card">
+            <span class="stat-num">{{ projects.length }}</span>
+            <span class="stat-label">Projects Built</span>
+          </div>
+          <div class="stat-card glass-card">
+            <span class="stat-num">{{ certifications.length }}</span>
+            <span class="stat-label">Certifications</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+<!-- Added the global 'section' class here so it perfectly matches the padding of the other sections -->
+<section id="skills" class="section skills-section">
+  <div class="section-header">
+    <span class="section-tag">02 — Expertise</span>
+    <h2 class="section-title">My Skills</h2>
+  </div>
+
+  <!-- Removed the hardcoded inline padding so the global CSS takes over -->
+  <div class="skills-container" style="display: flex; gap: 30px; flex-wrap: wrap; align-items: stretch;">
+
+    <!-- ======================================= -->
+    <!-- LEFT FRAME: TECHNICAL SKILLS            -->
+    <!-- ======================================= -->
+    <div class="skills-column glass-card" style="flex: 1; min-width: 300px; padding: 2rem; border-radius: 16px; display: flex; flex-direction: column;">
+      <h3 class="column-title" style="margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1);">Technical Skills</h3>
+      
+      <div class="skills-list" style="display: flex; flex-direction: column; gap: 1.25rem;">
+        @for (skill of technicalSkills; track skill.id) {
+          <div class="skill-item">
+            <div class="skill-info" style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+              <span class="skill-name" style="font-weight: 500;">{{ skill.name }}</span>
+              <span class="skill-level" style="color: var(--text-muted); font-size: 0.9rem;">{{ skill.level }}%</span>
+            </div>
+            <div class="progress-bar-bg" style="background: rgba(255,255,255,0.05); height: 8px; border-radius: 5px;">
+              <div class="progress-bar-fill" 
+                   [style.width.%]="skill.level" 
+                   style="background: var(--syntax-green); height: 100%; border-radius: 5px; transition: width 1s ease-in-out;">
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      @if (technicalSkills.length === 0) {
+        <p style="color: var(--text-muted); font-size: 0.9rem;">No technical skills added yet.</p>
+      }
+    </div>
+
+    <!-- ======================================= -->
+    <!-- RIGHT FRAME: SOFT SKILLS                -->
+    <!-- ======================================= -->
+    <div class="skills-column glass-card" style="flex: 1; min-width: 300px; padding: 2rem; border-radius: 16px; display: flex; flex-direction: column;">
+      <h3 class="column-title" style="margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1);">Soft Skills</h3>
+      
+      <div class="soft-skills-grid" style="display: flex; flex-wrap: wrap; gap: 12px; align-content: flex-start;">
+        @for (skill of softSkills; track skill.id) {
+          <div class="soft-skill-pill" 
+               style="padding: 10px 20px; 
+                      border-radius: 50px; 
+                      background: rgba(255,255,255,0.03);
+                      border: 1px solid rgba(255,255,255,0.1); 
+                      display: flex; 
+                      align-items: center; 
+                      gap: 10px;">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--syntax-blue); box-shadow: 0 0 8px var(--syntax-blue);"></span>
+            <span style="font-weight: 500; font-size: 0.95rem;">{{ skill.name }}</span>
+          </div>
+        }
+      </div>
+      
+      @if (softSkills.length === 0) {
+        <p style="color: var(--text-muted); font-size: 0.9rem;">No soft skills added yet.</p>
+      }
+    </div>
+
+  </div>
+<section id="projects" class="section projects-section">
+    <div class="section-header">
+      <span class="section-tag">03 — Projects</span>
+      <h2 class="section-title">Things I've Built</h2>
+    </div>
+
+    <div class="projects-grid">
+      @for (project of visibleProjects; track project.id) {
+        <div class="project-card glass-card">
+          
+          <div class="project-img-wrap">
+            @if (project.imageUrls && project.imageUrls.length > 0) {
+              <img [src]="project.imageUrls[0]" [alt]="project.title" class="project-img" onerror="this.src='https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80'"/>
+            } @else {
+              <img src="assets/project-placeholder.png" [alt]="project.title" class="project-img" onerror="this.src='https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80'"/>
+            }
+            <div class="project-overlay">
+              <span class="project-category">{{ project.category || 'Software Development' }}</span>
+            </div>
+          </div>
+
+          <div class="project-body">
+            <h4 class="project-title">{{ project.title }}</h4>
+            <p class="project-desc">{{ project.description }}</p>
+            
+            <div class="project-tech-wrap">
+              @for (tech of project.techStack; track tech) {
+                <span class="tech-badge">{{ tech }}</span>
+              }
+            </div>
+          </div>
+
+          <div class="project-actions">
+            @if (project.githubUrl) {
+              <a [href]="project.githubUrl" target="_blank" class="btn-proj btn-proj-outline">GitHub</a>
+            }
+            @if (project.category === 'Data Science' && project.datasetUrl) {
+              <a [href]="project.datasetUrl" target="_blank" class="btn-proj btn-proj-primary">Dataset</a>
+            }
+            
+            @if (project.category === 'Data Science' && project.presentationUrl) {
+              <a [href]="project.presentationUrl" target="_blank" class="btn-proj btn-proj-outline">Presentation</a>
+            }
+            
+            @if (project.category === 'Software' && project.liveWebsiteUrl) {
+              <a [href]="project.liveWebsiteUrl" target="_blank" class="btn-proj btn-proj-primary">Live Site</a>
+            }
+          </div>
+
+        </div>
+        
+      } @empty {
+        <div class="p text-center" style="grid-column: 1 / -1; color: var(--text-muted);">No live projects available yet. Check back soon.</div>
+      }
+    </div>
+  </section>
+<section id="certifications" class="section cert-section">
+  <div class="section-header">
+    <span class="section-tag">04 — Achievements</span>
+    <h2 class="section-title">My Certifications</h2>
+  </div>
+
+  <div class="cert-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px;">
+    
+    @for (cert of certifications; track cert.id) {
+      <div class="cert-card glass-card" style="border-radius: 16px; overflow: hidden; display: flex; flex-direction: column;">
+        
+        <!-- Image Area -->
+        <div class="cert-image-wrapper" style="height: 220px; overflow: hidden; position: relative; border-bottom: 1px solid rgba(255,255,255,0.1);">
+          @if (cert.imageUrl) {
+            <!-- Added the onerror fallback so a broken URL doesn't show a shattered image icon -->
+            <img [src]="cert.imageUrl" 
+                 [alt]="cert.name" 
+                 class="cert-img" 
+                 style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;"
+                 onerror="this.src='https://images.unsplash.com/photo-1589330694653-ded6df03f754?w=800&q=80'"/>
+          } @else {
+            <div style="width: 100%; height: 100%; background: rgba(255,255,255,0.03); display: flex; align-items: center; justify-content: center;">
+              <span style="color: var(--text-muted);">No Image</span>
+            </div>
+          }
+          
+          <!-- Safely check if issuer exists before displaying the badge -->
+          @if (cert.issuer) {
+            <div class="cert-issuer-badge" style="position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); padding: 6px 14px; border-radius: 50px; font-size: 0.8rem; border: 1px solid rgba(255,255,255,0.1); font-weight: 500;">
+              {{ cert.issuer }}
+            </div>
+          }
+        </div>
+
+        <!-- Content Area -->
+        <div class="cert-body" style="padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1;">
+          <h4 class="cert-title" style="margin: 0 0 8px 0; font-size: 1.2rem; font-weight: 600; line-height: 1.4;">{{ cert.name }}</h4>
+          
+          <!-- Gracefully handle either dateIssued OR year -->
+          <p class="cert-date" style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+            @if (cert.dateIssued) {
+              Issued: {{ cert.dateIssued | date:'longDate' }}
+            } @else if (cert.year) {
+              Year: {{ cert.year }}
+            }
+          </p>
+          
+          <!-- Fall back to opening the imageUrl directly -->
+          <div style="margin-top: auto;">
+            @if (cert.imageUrl) {
+              <a [href]="cert.imageUrl" target="_blank" class="btn btn-outline" style="width: 100%; text-align: center; display: inline-block; padding: 10px 0; border-radius: 8px;">
+                View Certificate
+              </a>
+            }
+          </div>
+        </div>
+
+      </div>
+    } @empty {
+      <div style="grid-column: 1 / -1; text-align: center; color: var(--text-muted); padding: 3rem;">
+        No certifications uploaded yet.
+      </div>
+    }
+  </div>
+</section>
+
+  <section id="contact" class="section contact-section">
+    <div class="section-header">
+      <span class="section-tag">05 — Contact</span>
+      <h2 class="section-title">Let's Connect</h2>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-form-wrap glass-card">
+        <form>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" placeholder="John Doe" #contactName/>
+            </div>
+            <div class="form-group">
+              <label>Company / Role</label>
+              <input type="text" placeholder="e.g. Recruiter at Tech Corp" #contactRole/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea rows="5" placeholder="Hi Nare..." #contactMessage></textarea>
+          </div>
+          
+          <div class="form-row" style="margin-top: 1.5rem; margin-bottom: 0;">
+            <a [href]="'mailto:nareromuwana@gmail.com?subject=Portfolio Message from ' + contactName.value + ' (' + contactRole.value + ')&body=' + contactMessage.value" class="btn btn-primary" style="justify-content: center; text-decoration: none;">Email Me</a>
+            <a [href]="'https://wa.me/27794668807?text=Hi Nare, my name is ' + contactName.value + ' from ' + contactRole.value + '. ' + contactMessage.value" target="_blank" class="btn btn-outline" style="justify-content: center; text-decoration: none;">WhatsApp Me</a>
+          </div>
+        </form>
+      </div>
+
+      <div class="contact-info">
+        <div class="hero-code-block" style="width: 100%; box-shadow: none;">
+          <div class="code-header">
+            <span class="code-filename">contact.json</span>
+          </div>
+          <pre class="code-body" style="margin: 0;"><span>&#123;</span>
+  <span class="cls">"developer"</span>: <span>&#123;</span>
+    <span class="kw">"name"</span>: <span class="str">"Nare Romuwana"</span>,
+    <span class="kw">"email"</span>: <span class="str">"nareromuwana@gmail.com"</span>,
+    <span class="kw">"Cell-Number"</span>: <span class="str">"+27 81 853 1898"</span>,
+    <span class="kw">"location"</span>: <span class="str">"Bloemfontein, South Africa"</span>
+  <span>&#125;</span>,
+  <span class="cls">"profiles"</span>: <span>&#123;</span>
+    <span class="kw">"github"</span>: <a href="https://github.com/Romuwana" target="_blank" class="str" style="text-decoration: none; border-bottom: 1px dashed var(--syntax-orange);">"github.com/Romuwana"</a>,
+    <span class="kw">"linkedin"</span>: <a href="https://linkedin.com/in/romuwana-nare" target="_blank" class="str" style="text-decoration: none; border-bottom: 1px dashed var(--syntax-orange);">"linkedin.com/in/romuwana-nare"</a>
+  <span>&#125;</span>
+<span>&#125;</span></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="footer-logo">NR<span class="dot">.</span></span>
+        <span class="footer-copy">© 2026 Nare Romuwana.</span>
+      </div>
+
+      <div class="footer-center">
+        <span class="status-item" title="Current Branch">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3v12"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
+          main*
+        </span>
+        <span class="status-item" title="Environment">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Angular 17 / ASP.NET
+        </span>
+        <span class="status-item" title="Server Region">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Bloemfontein, ZA
+        </span>
+      </div>
+
+      <div class="footer-right">
+        <a href="https://github.com/Romuwana" target="_blank" class="footer-link">GitHub</a>
+        <a href="https://linkedin.com/in/romuwana-nare" target="_blank" class="footer-link">LinkedIn</a>
+        <a routerLink="/login" class="footer-admin-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px; height:14px; margin-right:4px;"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          System Login
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  @if (isChatOpen) {
+    <div class="chat-window glass-card">
+      <div class="chat-header">
+        <div class="chat-title">
+          <span style="color: var(--syntax-blue)">const</span> <span style="color: var(--syntax-cyan)">PortfolioAI</span> = <span style="color: var(--syntax-yellow)">new</span> <span style="color: var(--syntax-cyan)">Llama3</span>();
+        </div>
+        <button class="chat-close" (click)="toggleChat()">×</button>
+      </div>
+      
+      <div class="chat-messages">
+        @for (msg of chatMessages; track $index) {
+          <div class="msg" [ngClass]="msg.role === 'user' ? 'msg-user' : 'msg-ai'">
+            <div class="msg-bubble">{{ msg.content }}</div>
+            <div class="msg-meta">{{ msg.role === 'user' ? '// you' : '// system_ai' }}</div>
+          </div>
+        }
+        @if (isChatTyping) {
+          <div class="msg msg-ai">
+            <div class="msg-bubble"><div class="typing-indicator"><span></span><span></span><span></span></div></div>
+            <div class="msg-meta">// querying postgres & llama3...</div>
+          </div>
+        }
+      </div>
+
+      <div class="chat-input-area">
+        <input type="text" [(ngModel)]="chatInput" placeholder="> Ask a question..." (keyup.enter)="sendChatMessage()">
+        <button (click)="sendChatMessage()">↑</button>
+      </div>
+    </div>
+  }
+
+  <button class="ai-chat-fab" (click)="toggleChat()" aria-label="Chat with AI Assistant">
+    <svg class="fab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10H2l3.06-3.06A9.96 9.96 0 0 1 2 12 10 10 0 0 1 12 2z"/>
+      <circle cx="8.5" cy="12" r="1.5" fill="currentColor"/>
+      <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+      <circle cx="15.5" cy="12" r="1.5" fill="currentColor"/>
+    </svg>
+    
+  </button>

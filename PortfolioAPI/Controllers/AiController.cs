@@ -11,14 +11,16 @@ namespace PortfolioAPI.Controllers
     public class AiController : ControllerBase
     {
         private static readonly HttpClient _httpClient = new HttpClient();
+        private IConfiguration _configuration;
 
         // 1. Declare the database context variable
         private readonly ApplicationDbContext _dbContext;
 
         // 2. The Constructor: ASP.NET injects the live database connection here
-        public AiController(ApplicationDbContext dbContext)
+        public AiController(ApplicationDbContext dbContext, IConfiguration configuration)
         {
             _dbContext = dbContext;
+            _configuration = configuration;
         }
 
         [HttpPost("chat")]
@@ -30,7 +32,7 @@ namespace PortfolioAPI.Controllers
             }
 
             // PASTE YOUR ACTUAL GROQ API KEY HERE
-            string apiKey = "";
+            string apiKey = _configuration["OpenAI:ApiKey"];
 
             try
             {

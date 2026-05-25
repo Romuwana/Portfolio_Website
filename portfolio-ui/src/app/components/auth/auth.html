@@ -1,0 +1,68 @@
+<div class="login-wrapper">
+  
+  <div class="login-card glass-card">
+    <div class="login-header">
+      <div class="window-controls">
+        <span class="dot close"></span>
+        <span class="dot min"></span>
+        <span class="dot max"></span>
+      </div>
+      <div class="window-title">auth_terminal.exe</div>
+    </div>
+
+    <div class="login-body">
+      <div class="login-logo">
+        <span class="syntax-blue">System</span>.<span class="syntax-cyan">AdminLogin</span>()
+      </div>
+      <p class="login-subtitle">// Please authenticate to access the Control Core.</p>
+
+      @if (errorMessage) {
+        <div class="error-banner">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          {{ errorMessage }}
+        </div>
+      }
+
+      <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+        <div class="form-group">
+          <label>> Username_</label>
+          <input 
+            type="text" 
+            name="username" 
+            [(ngModel)]="username" 
+            autocomplete="off" 
+            spellcheck="false" 
+            placeholder="admin"
+            [disabled]="isLoading"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label>> Password_</label>
+          <input 
+            type="password" 
+            name="password" 
+            [(ngModel)]="password" 
+            placeholder="••••••••"
+            [disabled]="isLoading"
+            required>
+        </div>
+
+        <div class="login-actions">
+          <button type="submit" class="btn btn-primary login-btn" [disabled]="isLoading || !username || !password">
+            @if (isLoading) {
+              <div class="spinner"></div> Authenticating...
+            } @else {
+              Execute Login
+            }
+          </button>
+          
+          <a routerLink="/" class="btn btn-ghost w-100" style="margin-top: 10px;">
+            ← Abort and Return to Public Site
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>

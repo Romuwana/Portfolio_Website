@@ -1,0 +1,56 @@
+/* src/styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap');
+
+:root {
+  /* IDE Dark Palette (VS Code / One Dark Inspired) */
+  --bg-deep: #1e1e1e;         
+  --bg-surface: #252526;      
+  --bg-surface-hover: #2a2d2e;
+  
+  --syntax-blue: #569cd6;     
+  --syntax-cyan: #4ec9b0;     
+  --syntax-green: #6a9955;    
+  --syntax-yellow: #dcdcaa;   
+  --syntax-orange: #ce9178;   
+  --syntax-purple: #c586c0;   
+  
+  --text-main: #d4d4d4;       
+  --text-muted: #858585;      
+  --font-body: 'Inter', sans-serif;
+  --font-code: 'Fira Code', monospace;
+
+  --ui-border: #3e3e42;       
+  --ui-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+
+/* This turns your whole screen dark! */
+body {
+  background-color: var(--bg-deep);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Global Reusable Classes */
+.glass-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--ui-border);
+  border-radius: 8px; 
+  box-shadow: var(--ui-shadow);
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+.glass-card:hover { border-color: var(--syntax-blue); box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6); }
+
+/* Global Buttons */
+.btn { display: inline-flex; justify-content: center; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 4px; font-weight: 500; font-family: var(--font-code); font-size: 0.9rem; cursor: pointer; border: 1px solid transparent; text-decoration: none; transition: all 0.2s ease; }
+.btn-primary { background: var(--syntax-blue); color: #1e1e1e; border-color: var(--syntax-blue); }
+.btn-primary:hover { background: #4a8bc2; }
+.btn-outline { background: transparent; color: var(--text-main); border-color: var(--ui-border); }
+.btn-outline:hover { background: var(--bg-surface-hover); }
+.btn-ghost { background: transparent; color: var(--syntax-purple); }
+.btn-ghost:hover { background: rgba(197, 134, 192, 0.1); }
