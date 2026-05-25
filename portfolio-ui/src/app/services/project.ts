@@ -37,7 +37,7 @@ private certsUrl = 'https://portfolio-website-2prc.onrender.com/api/certs';
     files.forEach(file => {
       formData.append('files', file, file.name);
     });
-    return this.http.post<string[]>('https://localhost:44391/api/upload', formData);
+    return this.http.post<string[]>('https://portfolio-website-2prc.onrender.com/api/upload', formData);
   }
 
   // ===================== SKILLS =====================
