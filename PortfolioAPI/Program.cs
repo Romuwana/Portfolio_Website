@@ -12,7 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddHttpClient();
 
 // Registers our custom AI logic
-//builder.Services.AddScoped<PortfolioAPI.Services.PortfolioAIService>();
+builder.Services.AddScoped<PortfolioAPI.Services.PortfolioAIService>();
 
 // 1. Use the native .NET 9 OpenAPI generator
 builder.Services.AddOpenApi();
