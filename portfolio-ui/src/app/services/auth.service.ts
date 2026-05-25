@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   // Make sure this matches your C# backend route!
-  private apiUrl = 'https://portfolio-website-2prc.onrender.com/api/auth'; 
+  private apiUrl = 'https://portfolio-website-2prc.onrender.com/api/auth/login'; 
 
   constructor(private http: HttpClient, private router: Router) {}
 
