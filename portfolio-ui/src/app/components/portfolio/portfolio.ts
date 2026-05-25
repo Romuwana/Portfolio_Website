@@ -113,7 +113,7 @@ export class PortfolioComponent implements OnInit {
     this.chatInput = '';
     this.isChatTyping = true;
 
-    this.http.post<{reply: string}>('https://localhost:44391/api/ai/chat', { message: userMsg }).subscribe({
+    this.http.post<{reply: string}>('https://portfolio-website-2prc.onrender.com/api/ai/chat', { message: userMsg }).subscribe({
       next: (res) => {
         this.chatMessages.push({ role: 'ai', content: res.reply });
         this.isChatTyping = false;
