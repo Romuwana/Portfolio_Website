@@ -1,22 +1,5 @@
 /* src/app/components/portfolio/portfolio.component.css */
-/* Tablet & Large Mobile: Scale everything down to 85% */
-@media (max-width: 768px) {
-  html {
-    font-size: 85%; 
-  }
-}
 
-/* Small Phones: Scale everything down even further to 75% */
-@media (max-width: 480px) {
-  html {
-    font-size: 75%; 
-  }
-}
-.hero-name {
-  /* This text will literally grow and shrink as you resize the window! */
-  font-size: clamp(2.5rem, 8vw, 5rem); 
-  margin-top: 2rem; /* Keep a safe, standard margin */
-}
 .portfolio-root { position: relative; min-height: 100vh; z-index: 1; }
 
 /* At the top of your CSS file */
@@ -321,27 +304,3 @@
 
 @keyframes slideUpFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-@media (max-width: 768px) {
-  /* 👇 THIS IS THE NEW LINE THAT FIXES IT 👇 */
-  .hero-section { padding-top: 6rem; } 
-  
-  .nav-links { display: none; }
-  .hamburger { display: flex; }
-  .hero-name { font-size: 3rem; }
-  .section-title { font-size: 1.8rem; }
-  .skills-grid { grid-template-columns: 1fr; }
-  .about-stats { flex-direction: column; }
-  
-  .mobile-nav { position: fixed; inset: 0; background: var(--bg-deep); z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
-  .mobile-nav.open { opacity: 1; pointer-events: auto; }
-  .mobile-nav a { color: var(--text-main); font-size: 1.2rem; text-decoration: none; font-family: var(--font-code); }
-  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .hamburger.open span:nth-child(2) { opacity: 0; }
-  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-  
-  .footer-inner { flex-direction: column; height: auto; padding: 1rem; gap: 1rem; }
-  .footer-center { display: none; }
-  .footer-right { width: 100%; justify-content: space-between; }
-  .footer-admin-link { border-left: none; padding-left: 0; }
-  .chat-window { right: 10px; left: 10px; width: auto; bottom: 130px; }
-}
