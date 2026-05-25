@@ -1,27 +1,42 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.Extensions.Configuration; // Crucial for reading environment variables
 
-namespace PortfolioAPI.Controllers // Change this namespace if yours is different!
+namespace PortfolioAPI.Controllers 
 {
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly IConfiguration _configuration;
+
+        // 1. Inject configuration to access environment variables securely
+        public AuthController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginDto request)
         {
-            // 1. HARDCODED CREDENTIALS
-            var validUser = "Romu";       // <-- Put your original username here
-            var validPass = "Hellen@2005**";    // <-- Put your original password here
+            // 2. Pull credentials securely from Render
+            var validUser = _configuration["ADMIN_USERNAME"];
+            var validPass = _configuration["ADMIN_PASSWORD"];
+
+            // 3. Safety check in case Render is missing the variables
+            if (string.IsNullOrEmpty(validUser) || string.IsNullOrEmpty(validPass))
+            {
+                return StatusCode(500, "Server configuration error: Admin credentials missing.");
+            }
 
             // Verify credentials
             if (request.Username == validUser && request.Password == validPass)
             {
                 var token = GenerateJwtToken(request.Username);
-                return Ok(new { token = token }); // Returns the token to Angular
+                return Ok(new { token = token }); 
             }
 
             return Unauthorized(new { message = "Invalid credentials. Access Denied." });
@@ -29,8 +44,14 @@ namespace PortfolioAPI.Controllers // Change this namespace if yours is differen
 
         private string GenerateJwtToken(string username)
         {
-            // 2. HARDCODED JWT SETTINGS
-            var secretKey = "ThisIsAMassiveSecretKeyForYourPortfolioThatNeedsToBeAtLeast32CharactersLong!";
+            // 4. Pull the JWT Key securely from Render
+            var secretKey = _configuration["JWT_SECRET_KEY"];
+            
+            if (string.IsNullOrEmpty(secretKey))
+            {
+                throw new Exception("Server configuration error: JWT Secret Key missing.");
+            }
+
             var issuer = "PortfolioAPI";
             var audience = "PortfolioUI";
 
