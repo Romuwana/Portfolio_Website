@@ -68,7 +68,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles(); 
 
-app.UseCors("AllowAngular");
+app.UseCors("AllowVercel");
 
 app.UseAuthentication();
 app.UseAuthorization();
