@@ -21,12 +21,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Allow Angular to talk to the API
+// Allow Vercel to talk to the API
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngular",
+    options.AddPolicy("AllowVercel",
         policy =>
         {
-            policy.WithOrigins("http://localhost:4200")
+            policy.AllowAnyOrigin() // This safely allows your Vercel site through
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
