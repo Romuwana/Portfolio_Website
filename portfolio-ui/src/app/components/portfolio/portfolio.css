@@ -304,67 +304,87 @@
 @keyframes slideUpFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
 /* =========================================
-   MOBILE STACKING RESET
-   Forces all 2-column layouts to stack 
-   sequentially on screens smaller than 768px.
+   HAMBURGER BUTTON BASE (Hidden on Desktop)
    ========================================= */
-
-@media (max-width: 768px) {
-  
-  /* 1. Global Padding & Navbar Clearance */
-  .section {
-    padding: 4rem 1rem; /* Reduces padding on the sides for mobile */
-  }
-  .hero-section {
-    padding-top: 7rem; /* Prevents the navbar from covering "Nare" */
-    flex-direction: column;
-    text-align: center;
-  }
-
-  /* 2. Grid Containers: Switch from 2 columns to 1 column */
-  .about-grid, 
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr; /* Forces exactly one column */
-    gap: 2rem;
-  }
-
-  /* 3. Flex Containers: Override inline styles to force vertical stacking */
-  .skills-container {
-    flex-direction: column !important; /* !important overrides your inline HTML styles */
-    gap: 2rem !important;
-  }
-  .skills-column {
-    width: 100% !important; /* Prevents columns from shrinking weirdly */
-  }
-
-  /* 4. Center Alignments for Stacked Content */
-  .about-stats {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .hero-cta-group {
-    justify-content: center; /* Centers your buttons under the hero text */
-    flex-wrap: wrap;
-  }
-
-  /* 5. Footer Stacking */
-  .footer-inner {
-    flex-direction: column;
-    text-align: center;
-    gap: 1.5rem;
-    height: auto;
-    padding: 2rem 1rem;
-  }
-  .footer-center {
-    display: flex;
-    flex-direction: column; /* Stacks the status items */
-    gap: 0.8rem;
-  }
-  .footer-right {
-    width: 100%;
-    justify-content: center; /* Centers the GitHub/LinkedIn links */
-    gap: 1.5rem;
-  }
+.hamburger { 
+  display: none; 
+  background: none; 
+  border: none; 
+  cursor: pointer; 
+  flex-direction: column; 
+  gap: 5px; 
+  z-index: 1001; /* Keeps it above the mobile menu overlay */
 }
 
+.hamburger span { 
+  width: 25px; 
+  height: 2px; 
+  background: var(--text-main, #ffffff); 
+  transition: 0.3s ease; 
+  border-radius: 2px;
+}
+
+/* Base mobile nav state (hidden on desktop) */
+.mobile-nav { 
+  display: none; 
+}
+
+
+/* =========================================
+   MOBILE MENU OVERLAY & ANIMATIONS
+   Activates only on screens 768px and smaller.
+   ========================================= */
+@media (max-width: 768px) {
+  
+  /* Hide desktop links, show hamburger */
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  
+  /* The Full-Screen Glass Overlay */
+  .mobile-nav { 
+    position: fixed; 
+    inset: 0; 
+    background: rgba(15, 23, 42, 0.98); /* Deep, slightly transparent background */
+    backdrop-filter: blur(10px); /* Glassmorphism effect */
+    z-index: 999; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 2rem; 
+    opacity: 0; 
+    pointer-events: none; 
+    transition: opacity 0.3s ease-in-out; 
+  }
+  
+  /* When the 'open' class is added via your toggleMenu() function */
+  .mobile-nav.open { 
+    opacity: 1; 
+    pointer-events: auto; 
+  }
+  
+  /* Styling the mobile menu links */
+  .mobile-nav a { 
+    color: var(--text-main, #ffffff); 
+    font-size: 1.5rem; 
+    text-decoration: none; 
+    font-family: var(--font-code, monospace); 
+    transition: color 0.2s ease;
+  }
+  
+  .mobile-nav a:hover, 
+  .mobile-nav a:active {
+    color: var(--syntax-blue, #61dafb);
+  }
+
+  /* Hamburger to 'X' Animation */
+  .hamburger.open span:nth-child(1) { 
+    transform: translateY(7px) rotate(45deg); 
+  }
+  .hamburger.open span:nth-child(2) { 
+    opacity: 0; /* Hides the middle line */
+  }
+  .hamburger.open span:nth-child(3) { 
+    transform: translateY(-7px) rotate(-45deg); 
+  }
+}
