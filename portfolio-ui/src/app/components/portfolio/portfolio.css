@@ -4,7 +4,7 @@
 
 /* At the top of your CSS file */
 .section { 
-  padding: 60px 5%; /* <-- Reduced this from 100px to tighten the gaps everywhere! */
+  padding: 60px 5%; 
   max-width: 1400px; 
   margin: 0 auto; 
   position: relative; 
@@ -52,7 +52,7 @@
 .kw { color: var(--syntax-blue); } .cls { color: var(--syntax-cyan); } .str { color: var(--syntax-orange); }
 
 /* GRIDS */
- .skills-grid, .projects-grid, .contact-grid { display: grid; gap: 2rem; }
+.skills-grid, .projects-grid, .contact-grid { display: grid; gap: 2rem; }
 .skills-grid { grid-template-columns: 1fr 1fr; }
 .projects-grid { grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); }
 .contact-grid { grid-template-columns: 1.5fr 1fr; }
@@ -71,13 +71,12 @@
 .about-content {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem; /* Adds clean spacing between text and stats */
-  
+  gap: 1.5rem; 
 }
 
 .about-card { 
   padding: 2.5rem; 
-  height: auto; /* <-- THIS removes the massive blank space! */
+  height: auto; 
 }
 
 .about-paragraph { margin-bottom: 1.5rem; color: var(--text-muted); font-size: 1rem; }
@@ -114,11 +113,8 @@
 .about-img-frame {
   position: relative;
   width: 100%;
-  
-  /* FORCE it to rely only on the aspect ratio, destroying any ghost heights */
   height: auto; 
   aspect-ratio: 5 / 5; 
-  
   background: var(--bg-surface);
   border: 1px solid var(--ui-border);
   border-radius: 8px;
@@ -146,8 +142,8 @@
 .about-profile-img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* <-- THIS makes the image fill the box cleanly without squishing */
-  object-position: center 20%; /* Pushes the focus slightly up towards your face */
+  object-fit: cover; 
+  object-position: center 20%; 
   filter: grayscale(80%) contrast(1.1); 
   transition: all 0.5s ease;
 }
@@ -201,10 +197,6 @@
 .footer-admin-link { color: var(--syntax-orange); padding-left: 1rem; border-left: 1px solid var(--ui-border); }
 
 /* AI CHAT */
-/* ========================================== */
-/* AI ASSISTANT FLOATING ACTION BUTTON        */
-/* ========================================== */
-
 .ai-chat-fab {
   position: fixed;
   bottom: 2rem;
@@ -213,56 +205,41 @@
   align-items: center;
   gap: 0.6rem;
   padding: 0.8rem 1.4rem;
-  
-  /* Vibrant gradient background mixing your theme colors */
   background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(147, 51, 234, 0.25));
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  
-  /* Glowing glass border */
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-top: 1px solid rgba(255, 255, 255, 0.3);
   border-left: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 50px;
-  
   color: #fff;
   font-family: var(--font-code, monospace);
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   z-index: 999;
-  
-  /* Initial shadow and glow */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 
-              0 0 15px rgba(147, 51, 234, 0.3);
-              
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(147, 51, 234, 0.3);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   animation: aiBreathing 4s ease-in-out infinite;
 }
 
-/* Hover State: Scales up and intensifies the glow */
 .ai-chat-fab:hover {
   background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(147, 51, 234, 0.4));
   border-color: rgba(255, 255, 255, 0.4);
   transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 
-              0 0 25px rgba(59, 130, 246, 0.6);
-  /* Pause the breathing animation while the user is hovering */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(59, 130, 246, 0.6);
   animation-play-state: paused; 
 }
 
-/* Active/Click State: Shrinks slightly for tactile feedback */
 .ai-chat-fab:active {
   transform: translateY(2px) scale(0.95);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4), 
-              0 0 10px rgba(147, 51, 234, 0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4), 0 0 10px rgba(147, 51, 234, 0.3);
 }
 
 .fab-icon {
   width: 22px;
   height: 22px;
   flex-shrink: 0;
-  /* Optional: gives the icon a soft highlight */
   filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
 }
 
@@ -271,23 +248,13 @@
   letter-spacing: 0.5px;
 }
 
-/* The subtle floating/breathing animation */
 @keyframes aiBreathing {
-  0% { 
-    transform: translateY(0); 
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(147, 51, 234, 0.3); 
-  }
-  50% { 
-    transform: translateY(-6px); 
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 25px rgba(59, 130, 246, 0.4); 
-  }
-  100% { 
-    transform: translateY(0); 
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(147, 51, 234, 0.3); 
-  }
+  0% { transform: translateY(0); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(147, 51, 234, 0.3); }
+  50% { transform: translateY(-6px); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 25px rgba(59, 130, 246, 0.4); }
+  100% { transform: translateY(0); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(147, 51, 234, 0.3); }
 }
-.ai-chat-fab { position: fixed; bottom: 60px; right: 30px; width: 55px; height: 55px; border-radius: 8px; background: var(--syntax-blue); border: none; color: #1e1e1e; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--ui-shadow); z-index: 1000; transition: transform 0.2s ease; }
-.chat-window { position: fixed; bottom: 130px; right: 30px; width: 380px; height: 500px; display: flex; flex-direction: column; z-index: 1000; background: var(--bg-deep); box-shadow: 0 15px 35px rgba(0,0,0,0.6); border-radius: 8px; border: 1px solid var(--ui-border); animation: slideUpFade 0.3s ease; }
+
+.chat-window { position: fixed; bottom: 100px; right: 30px; width: 380px; height: 500px; display: flex; flex-direction: column; z-index: 1000; background: var(--bg-deep); box-shadow: 0 15px 35px rgba(0,0,0,0.6); border-radius: 8px; border: 1px solid var(--ui-border); animation: slideUpFade 0.3s ease; }
 .chat-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: var(--bg-surface); border-bottom: 1px solid var(--ui-border); font-family: var(--font-code); font-size: 0.85rem; border-radius: 8px 8px 0 0; }
 .chat-close { background: transparent; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; }
 .chat-messages { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; }
@@ -313,7 +280,7 @@
   cursor: pointer; 
   flex-direction: column; 
   gap: 5px; 
-  z-index: 1001; /* Keeps it above the mobile menu overlay */
+  z-index: 1001; 
 }
 
 .hamburger span { 
@@ -324,67 +291,164 @@
   border-radius: 2px;
 }
 
-/* Base mobile nav state (hidden on desktop) */
 .mobile-nav { 
   display: none; 
 }
 
 
-/* =========================================
-   MOBILE MENU OVERLAY & ANIMATIONS
-   Activates only on screens 768px and smaller.
-   ========================================= */
+/* ════════════════════════════════════════════════════════════════
+   🔥 THE ULTIMATE MOBILE OVERRIDE & CAROUSEL (768px and below) 🔥
+   ════════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
   
-  /* Hide desktop links, show hamburger */
-  .nav-links { display: none; }
-  .hamburger { display: flex; }
+  /* --- 1. Hamburger & Mobile Menu Overlay --- */
+  .nav-links { display: none !important; }
+  .hamburger { display: flex !important; }
   
-  /* The Full-Screen Glass Overlay */
   .mobile-nav { 
-    position: fixed; 
-    inset: 0; 
-    background: rgba(15, 23, 42, 0.98); /* Deep, slightly transparent background */
-    backdrop-filter: blur(10px); /* Glassmorphism effect */
-    z-index: 999; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center; 
-    gap: 2rem; 
+    position: fixed !important; 
+    inset: 0 !important; 
+    background: rgba(15, 23, 42, 0.98) !important; 
+    backdrop-filter: blur(10px) !important; 
+    z-index: 999 !important; 
+    display: flex !important; 
+    flex-direction: column !important; 
+    align-items: center !important; 
+    justify-content: center !important; 
+    gap: 2rem !important; 
     opacity: 0; 
     pointer-events: none; 
     transition: opacity 0.3s ease-in-out; 
   }
   
-  /* When the 'open' class is added via your toggleMenu() function */
   .mobile-nav.open { 
-    opacity: 1; 
-    pointer-events: auto; 
+    opacity: 1 !important; 
+    pointer-events: auto !important; 
   }
   
-  /* Styling the mobile menu links */
   .mobile-nav a { 
-    color: var(--text-main, #ffffff); 
-    font-size: 1.5rem; 
-    text-decoration: none; 
-    font-family: var(--font-code, monospace); 
-    transition: color 0.2s ease;
+    color: var(--text-main, #ffffff) !important; 
+    font-size: 1.5rem !important; 
+    text-decoration: none !important; 
+    font-family: var(--font-code, monospace) !important; 
   }
   
-  .mobile-nav a:hover, 
-  .mobile-nav a:active {
-    color: var(--syntax-blue, #61dafb);
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+
+  /* --- 2. Hero Section Restructuring --- */
+  .hero-section {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding-top: 6rem !important; /* Clears the fixed navbar */
+    gap: 2.5rem !important;
+    height: auto !important;
   }
 
-  /* Hamburger to 'X' Animation */
-  .hamburger.open span:nth-child(1) { 
-    transform: translateY(7px) rotate(45deg); 
+  .hero-content {
+    width: 100% !important;
+    text-align: center !important;
   }
-  .hamburger.open span:nth-child(2) { 
-    opacity: 0; /* Hides the middle line */
+
+  .hero-badge { margin: 0 auto 1.5rem auto !important; }
+  .hero-cta-group { justify-content: center !important; }
+
+  .hero-code-block {
+    width: 100% !important;
+    max-width: 100% !important;
+    text-align: left !important; /* Keeps code readable */
   }
-  .hamburger.open span:nth-child(3) { 
-    transform: translateY(-7px) rotate(-45deg); 
+
+
+  /* --- 3. Grid to Stack Restructuring (About, Skills, Contact) --- */
+  .about-grid, 
+  .contact-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2rem !important;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr !important; /* Stacks the Name and Company inputs */
+  }
+
+  .skills-container {
+    flex-direction: column !important;
+    gap: 2rem !important;
+  }
+
+  .skills-column {
+    width: 100% !important;
+    min-width: 100% !important;
+  }
+
+
+  /* --- 4. The Horizontal Swipe Carousel (Projects & Certs) --- */
+  .projects-grid, 
+  .cert-grid {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x mandatory; /* Creates the native "snap" feeling */
+    gap: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+    -webkit-overflow-scrolling: touch; 
+  }
+
+  /* Hides the ugly scrollbar for a clean app feel */
+  .projects-grid::-webkit-scrollbar, 
+  .cert-grid::-webkit-scrollbar { 
+    display: none !important; 
+  }
+
+  .project-card, 
+  .cert-card {
+    flex: 0 0 85% !important; /* Cards take 85% of screen, letting the next card peek in */
+    scroll-snap-align: center;
+    max-width: 85% !important;
+  }
+
+
+  /* --- 5. Footer Layout --- */
+  .footer-inner {
+    flex-direction: column !important;
+    height: auto !important;
+    padding: 2rem 1rem !important;
+    gap: 1.5rem !important;
+    text-align: center !important;
+  }
+
+  .footer-center {
+    flex-direction: column !important;
+    gap: 0.8rem !important;
+  }
+
+  .footer-right {
+    width: 100% !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+  }
+
+  .footer-admin-link {
+    border-left: none !important;
+    padding-left: 0 !important;
+  }
+
+  /* --- 6. AI Chat Window Adjustments --- */
+  .chat-window {
+    right: 10px !important;
+    left: 10px !important;
+    width: auto !important;
+    bottom: 90px !important; 
+  }
+
+  .ai-chat-fab {
+    bottom: 20px !important;
+    right: 20px !important;
   }
 }
