@@ -308,7 +308,7 @@
   .mobile-nav { 
     position: fixed !important; 
     inset: 0 !important; 
-    background: rgba(15, 23, 42, 0.98) !important; 
+    background: var(--bg-deep) !important; 
     backdrop-filter: blur(10px) !important; 
     z-index: 999 !important; 
     display: flex !important; 
