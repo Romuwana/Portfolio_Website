@@ -1,6 +1,11 @@
 /* src/app/components/portfolio/portfolio.component.css */
 
-.portfolio-root { position: relative; min-height: 100vh; z-index: 1; }
+.portfolio-root { 
+  position: relative; 
+  min-height: 100vh; 
+  z-index: 1; 
+  overflow-x: hidden; 
+}
 
 /* At the top of your CSS file */
 .section { 
