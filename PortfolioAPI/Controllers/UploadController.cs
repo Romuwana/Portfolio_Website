@@ -1,16 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 
 [Route("api/[controller]")]
 [ApiController]
 public class UploadController : ControllerBase
 {
-    private readonly IWebHostEnvironment _env;
+    private readonly IConfiguration _configuration;
     private readonly ILogger<UploadController> _logger;
 
-    // Inject ILogger so we can force errors to show up in Render!
-    public UploadController(IWebHostEnvironment env, ILogger<UploadController> logger)
+    public UploadController(IConfiguration configuration, ILogger<UploadController> logger)
     {
-        _env = env;
+        _configuration = configuration;
         _logger = logger;
     }
 
@@ -21,40 +22,52 @@ public class UploadController : ControllerBase
 
         try
         {
-            var basePath = string.IsNullOrWhiteSpace(_env.WebRootPath)
-                ? Path.Combine(_env.ContentRootPath, "wwwroot")
-                : _env.WebRootPath;
-
-            var uploadPath = Path.Combine(basePath, "uploads");
-
-            if (!Directory.Exists(uploadPath)) 
-            {
-                Directory.CreateDirectory(uploadPath);
-            }
-
+            // 1. Connect to Cloudinary using your secure environment variables
+            var account = new Account(
+                _configuration["CLOUDINARY_CLOUD_NAME"],
+                _configuration["CLOUDINARY_API_KEY"],
+                _configuration["CLOUDINARY_API_SECRET"]
+            );
+            
+            var cloudinary = new Cloudinary(account);
             var savedUrls = new List<string>();
 
+            // 2. Loop through and upload each file
             foreach (var file in files)
             {
-                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                var filePath = Path.Combine(uploadPath, fileName);
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                if (file.Length > 0)
                 {
-                    await file.CopyToAsync(stream);
-                }
+                    using (var stream = file.OpenReadStream())
+                    {
+                        var uploadParams = new ImageUploadParams()
+                        {
+                            File = new FileDescription(file.FileName, stream),
+                            Folder = "portfolio_projects", // Creates a neat folder in your Cloudinary account
+                            Transformation = new Transformation().Quality("auto").FetchFormat("auto") // Automatically optimizes the image size!
+                        };
 
-                // DYNAMIC URL FIX: This builds the URL using your live Render domain!
-                var finalUrl = $"{Request.Scheme}://{Request.Host}/uploads/{fileName}";
-                savedUrls.Add(finalUrl);
+                        var uploadResult = await cloudinary.UploadAsync(uploadParams);
+
+                        // 3. Grab the permanent URL from Cloudinary
+                        if (uploadResult.StatusCode == System.Net.HttpStatusCode.OK)
+                        {
+                            savedUrls.Add(uploadResult.SecureUrl.ToString());
+                        }
+                        else
+                        {
+                            _logger.LogError($"Cloudinary upload failed: {uploadResult.Error?.Message}");
+                            return StatusCode(500, "Failed to upload to cloud storage.");
+                        }
+                    }
+                }
             }
 
+            // 4. Send the permanent Cloudinary URLs back to Angular
             return Ok(savedUrls);
         }
         catch (Exception ex)
         {
-            // THIS WILL FORCE THE ERROR TO SHOW IN THE RENDER LOGS
-            _logger.LogError(ex, "CRITICAL ERROR SAVING FILE TO RENDER!");
+            _logger.LogError(ex, "CRITICAL ERROR UPLOADING TO CLOUDINARY!");
             return StatusCode(500, $"Internal server error: {ex.Message}");
         }
     }
