@@ -15,6 +15,12 @@ public class UploadController : ControllerBase
         _logger = logger;
     }
 
+    [HttpGet("health")]
+    public IActionResult KeepAlive()
+    {
+        return Ok(new { status = "Awake" });
+    }
+
     [HttpPost]
     public async Task<IActionResult> UploadImages([FromForm] List<IFormFile> files)
     {
