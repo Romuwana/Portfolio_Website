@@ -16,6 +16,7 @@ public class UploadController : ControllerBase
     }
 
     [HttpGet("health")]
+    [HttpHead("health")]
     public IActionResult KeepAlive()
     {
         return Ok(new { status = "Awake" });
