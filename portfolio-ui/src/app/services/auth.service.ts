@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   // Make sure this matches your C# backend route!
-  private apiUrl = 'https://localhost:44391/api/auth'; 
+  private apiUrl = 'https://portfolio-website-2prc.onrender.com/api/auth'; 
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -18,6 +18,7 @@ export class AuthService {
   login(username: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, { username, password }).pipe(
       tap(response => {
+        console.log("C# BACKEND SENT THIS:", response);
         if (response && response.token) {
           localStorage.setItem('adminToken', response.token);
         }

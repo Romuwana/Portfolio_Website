@@ -11,8 +11,6 @@ builder.Services.AddControllers();
 // Allows our app to make external web requests
 builder.Services.AddHttpClient();
 
-// Registers our custom AI logic
-//builder.Services.AddScoped<PortfolioAPI.Services.PortfolioAIService>();
 
 // 1. Use the native .NET 9 OpenAPI generator
 builder.Services.AddOpenApi();
@@ -21,12 +19,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Allow Angular to talk to the API
+// Allow Vercel to talk to the API
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngular",
+    options.AddPolicy("AllowVercel",
         policy =>
         {
-            policy.WithOrigins("http://localhost:4200")
+            policy.AllowAnyOrigin() // This safely allows your Vercel site through
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
@@ -68,7 +67,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles(); 
 
-app.UseCors("AllowAngular");
+app.UseCors("AllowVercel");
 
 app.UseAuthentication();
 app.UseAuthorization();
